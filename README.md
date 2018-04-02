@@ -1,2 +1,2 @@
 # BrokenImgurLinks
-## A bot to report broken imgur links.
+A bot to report broken imgur links.
