@@ -26,8 +26,6 @@ def reply(post):
 
 	#log the reply in the file
 	with open("logfile.txt", "a") as log:
-		log.write("\n")
-		log.write("*******************************\n")
 		log.write("Replied to thread: " + str(post.shortlink) + " at: " + arrow.utcnow().format("YYYY-MM-DD HH:mm:ss") + "\n")
 
 	exit()
@@ -50,7 +48,7 @@ reddit = Reddit(client_id=c_id, client_secret=secret, username=user, password=pw
 subreddit = reddit.subreddit('howdoiexist')
 
 with open("logfile.txt", "a") as log:
-	log.write("Successfully logged in at: " + arrow.utcnow().format("YYYY-MM-DD HH:mm:ss") + "\n")
+	log.write("\n\nSuccessfully logged in at: " + arrow.utcnow().format("YYYY-MM-DD HH:mm:ss") + "\n")
 
 with open("message.md", "r") as msgfile:
 	message = msgfile.read()
@@ -66,6 +64,18 @@ while True:
 			continue
 
 		if "m.imgur" in post.url:
+			continue
+
+		#check if the bot has already hit this post
+		already_commented = False
+
+		for comment in post.comments:
+			if comment.author == "BrokenImgurLinksBot":
+				already_commented = True
+				break
+
+		if already_commented:
+			print("already got there")
 			continue
 
 		failures = 0
