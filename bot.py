@@ -1,5 +1,5 @@
 from praw import *
-import time, arrow, requests
+import time, arrow, requests, sys
 
 
 
@@ -33,6 +33,17 @@ def reply(post):
 	return
 
 
+#####################
+#START OF THE SCRIPT#
+#####################
+
+
+#check for sufficient arguments
+if len(sys.argv) < 2:
+	print("USAGE: bot.py subreddit")
+	exit(-1)
+
+
 #init variables
 c_id = secret = user = pwd = message =  ""
 
@@ -43,9 +54,10 @@ with open("keys", 'r') as keys:
 	pwd = keys.readline()[:-1]
 
 
+#log in
 reddit = Reddit(client_id=c_id, client_secret=secret, username=user, password=pwd, user_agent='mac:BrokenLinks0.1 (by /u/BrokenImgurLinksBot)')
 
-subreddit = reddit.subreddit('howdoiexist')
+subreddit = reddit.subreddit(sys.argv[1])
 
 with open("logfile.txt", "a") as log:
 	log.write("\n\nSuccessfully logged in at: " + arrow.utcnow().format("YYYY-MM-DD HH:mm:ss") + "\n")
