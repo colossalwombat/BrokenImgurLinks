@@ -12,8 +12,11 @@ def attempt(url):
 	#check the html return code
 	#302 is the redirect that for imgur, always indicates the image has been removed
 
-	if page.history and page.history[0].status_code == 302 or page.history[0].status_code == 404:
-		return True
+	try:
+		if page.history and page.history[0].status_code == 302 or page.history[0].status_code == 404:
+			return True
+	except:
+		return False
 
 	return False
 
