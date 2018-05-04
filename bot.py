@@ -31,8 +31,6 @@ def reply(post):
 	with open("logfile.txt", "a") as log:
 		log.write("Replied to thread: " + str(post.shortlink) + " at: " + arrow.utcnow().format("YYYY-MM-DD HH:mm:ss") + "\n")
 
-	exit()
-
 	return
 
 
